@@ -56,11 +56,11 @@ I wish to relicense all code under these terms as GPL2.
 The changes made in 2021 and beyond are:
 
 ```
-Copyright (C) 2021-2022 Alexander F. Rødseth <xyproto@archlinux.org>
+Copyright (C) 2021-2023 Alexander F. Rødseth <xyproto@archlinux.org>
 Released under the terms of the GNU General Public License version 2
 ```
 
-The entire code of `supernice` is now released under GPL2.
+The entire code of `supernice` is released under GPL2.
 
 The full license text is in the `COPYING` file.
 

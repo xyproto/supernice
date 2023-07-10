@@ -14,6 +14,24 @@ If you have ever watched the mouse cursor freeze when compiling a large project,
     supernice make
 
 
+## Requirements
+
+* Linux
+* `make`
+* A working C compiler, like `gcc`
+
+
+## Installation
+
+Build
+
+    make
+
+Install (use `sudo`, `doas` or run as root):
+    
+    sudo make install
+
+
 ## License
 
 The original source code of `ionice` is dual-licenced under either GPL2:

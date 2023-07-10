@@ -148,7 +148,7 @@ int main(int argc, char** argv)
     };
     atexit(close_stdout);
 
-    while ((c = getopt_long(argc, argv, "+n:c:p:P:u:tVh", longopts, NULL)) != EOF)
+    while ((c = getopt_long(argc, argv, "Vh", longopts, NULL)) != EOF)
         switch (c) {
         case 'V':
             printf("%s\n", version_string);
@@ -159,6 +159,11 @@ int main(int argc, char** argv)
             fprintf(stderr, "Try 'supernice --help' for more information.\n");
             exit(EXIT_FAILURE);
         }
+
+	if (argc < 2) {
+		fprintf(stderr, "Provide a command as the first argument.\n");
+		exit(EXIT_FAILURE);
+	}
 
     // supernice COMMAND
     ioprio_setid(0, ioclass, 7, IOPRIO_WHO_PROCESS, tolerant);

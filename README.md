@@ -4,6 +4,8 @@ Set the I/O-scheduling class, priority and niceness to relaxed values when launc
 
 This was originally a fork of `ionice` from `util-linux`.
 
+Running `supernice` is the equivalent of running both `ionice -c3` and `nice -n20`.
+
 This can be useful to prevent processes from hogging the CPU and/or the I/O.
 
 If you have ever watched the mouse cursor freeze when compiling a large project, this utility is for you.

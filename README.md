@@ -1,8 +1,18 @@
-# THIS PROJECT IS A WORK IN PROGRESS
+# Supernice
 
-# Super Nice
+Set the I/O-scheduling class, priority and niceness to relaxed values when launching a process.
 
-Launch executables so that they do not hog the CPU and not the I/O. Takes no flags or arguments apart from the executable filename.
+This can be useful to prevent processes from hogging the CPU and/or the I/O.
+
+If you have ever watched the mouse cursor freeze when compiling a large project, this utility is for you.
+
+This was originally a fork of `ionice` from `util-linux`.
+
+
+## Example use
+
+    supernice chromium
+
 
 ## License
 

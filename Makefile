@@ -1,6 +1,6 @@
 .PHONY: clean install uninstall
 
-CFLAGS ?= -O2 -fPIC -fstack-protector-strong -D_GNU_SOURCE -s -z norelro
+CFLAGS ?= -O2 -fPIC -fstack-protector-strong -D_GNU_SOURCE -s -z norelro -Wunused
 PREFIX ?= /usr
 BINDIR ?= $(PREFIX)/bin
 DESTDIR ?=

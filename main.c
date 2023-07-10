@@ -29,12 +29,6 @@ enum {
 static int IOPRIO_CLASS_SHIFT = 13;
 static int EX_EXEC_FAILED = 126; // Program located, but not usable
 static int EX_EXEC_ENOENT = 127; // Could not find program to exec
-static const char* to_prio[] = {
-    [IOPRIO_CLASS_NONE] = "none",
-    [IOPRIO_CLASS_RT] = "realtime",
-    [IOPRIO_CLASS_BE] = "best-effort",
-    [IOPRIO_CLASS_IDLE] = "idle"
-};
 
 static inline int flush_standard_stream(FILE* stream)
 {
@@ -122,34 +116,6 @@ static inline unsigned long IOPRIO_PRIO_VALUE(unsigned long class, unsigned long
     return ((class << IOPRIO_CLASS_SHIFT) | data);
 }
 
-static int parse_ioclass(const char* str)
-{
-    for (int i = 0; i < 4; i++) {
-        if (!strcasecmp(str, to_prio[i])) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-static void ioprio_print(const int pid, const int who)
-{
-    const int ioprio = syscall(SYS_ioprio_get, who, pid);
-    if (ioprio == -1) {
-        err(EXIT_FAILURE, "ioprio_get failed");
-    }
-    const int ioclass = IOPRIO_PRIO_CLASS(ioprio);
-    const char* name = "unknown";
-    if (ioclass >= 0 && (size_t)ioclass < 4) {
-        name = to_prio[ioclass];
-    }
-    if (ioclass != IOPRIO_CLASS_IDLE) {
-        printf("%s: prio %lu\n", name, IOPRIO_PRIO_DATA(ioprio));
-    } else {
-        printf("%s\n", name);
-    }
-}
-
 static void ioprio_setid(int which, int ioclass, int data, int who, bool tolerant)
 {
     const int rc = syscall(SYS_ioprio_set, who, which, IOPRIO_PRIO_VALUE(ioclass, data));
@@ -173,7 +139,7 @@ static void __attribute__((__noreturn__)) usage(void)
 int main(int argc, char** argv)
 {
     bool tolerant = false;
-    int c = 0, which = 0, who = 0, ioclass = IOPRIO_CLASS_IDLE, niceness = 10;
+    int c = 0, ioclass = IOPRIO_CLASS_IDLE, niceness = 10;
 
     static const struct option longopts[] = {
         { "help", no_argument, NULL, 'h' },

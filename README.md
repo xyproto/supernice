@@ -6,7 +6,7 @@ This was originally a fork of `ionice` from `util-linux`.
 
 Running `supernice` is the equivalent of running both `ionice -c3` and `nice -n20`.
 
-This can be useful to prevent processes from hogging the CPU and/or the I/O.
+This can be useful to prevent processes from hogging the CPU and the I/O capabilities of a system, with a command that is extremely easy to remember.
 
 If you have ever watched the mouse cursor freeze when compiling a large project, this utility is for you.
 

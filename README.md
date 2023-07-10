@@ -11,7 +11,7 @@ If you have ever watched the mouse cursor freeze when compiling a large project,
 
 ## Example use
 
-    supernice chromium
+    supernice make
 
 
 ## License

@@ -9,6 +9,8 @@
 #include <string.h>
 #include <sys/syscall.h>
 #include <unistd.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 
 static const char* version_string = "supernice 1.0.0";
 
@@ -180,7 +182,8 @@ int main(int argc, char** argv)
 {
     bool tolerant = false;
     const char* invalid_msg = NULL;
-    int data = 4, set = 0, c = 0, which = 0, who = 0, ioclass = IOPRIO_CLASS_BE;
+    int data = 4, set = 0, c = 0, which = 0, who = 0, ioclass = IOPRIO_CLASS_IDLE;
+    int niceness = 10;
     static const struct option longopts[] = {
         { "classdata", required_argument, NULL, 'n' },
         { "class", required_argument, NULL, 'c' },
@@ -282,13 +285,16 @@ int main(int argc, char** argv)
     } else if (set && who) {
         // supernice -c CLASS -p|-P|-u ID [ID ...]
         ioprio_setid(which, ioclass, data, who, tolerant);
+        setpriority(which, PRIO_PROCESS, niceness);
         for (; argv[optind]; ++optind) {
             which = strtos32_or_err(argv[optind], invalid_msg);
             ioprio_setid(which, ioclass, data, who, tolerant);
+            setpriority(which, PRIO_PROCESS, niceness);
         }
     } else if (argv[optind]) {
         // tinyionce [-c CLASS] COMMAND
         ioprio_setid(0, ioclass, data, IOPRIO_WHO_PROCESS, tolerant);
+        setpriority(0, PRIO_PROCESS, niceness);
         execvp(argv[optind], &argv[optind]);
         err(errno == ENOENT ? EX_EXEC_ENOENT : EX_EXEC_FAILED, "failed to execute %s", argv[optind]);
     } else {

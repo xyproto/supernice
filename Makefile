@@ -5,14 +5,14 @@ PREFIX ?= /usr
 BINDIR ?= $(PREFIX)/bin
 DESTDIR ?=
 
-tinyionice: main.c
+supernice: main.c
 	$(CC) $(CFLAGS) $< -o $@
 
-install: tinyionice
-	install -D -m 755 tinyionice "$(DESTDIR)$(BINDIR)/tinyionice"
+install: supernice
+	install -D -m 755 supernice "$(DESTDIR)$(BINDIR)/supernice"
 
 uninstall:
-	rm -f "$(DESTDIR)$(BINDIR)/tinyionice"
+	rm -f "$(DESTDIR)$(BINDIR)/supernice"
 
 clean:
-	rm -f tinyionice
+	rm -f supernice
